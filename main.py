@@ -1,6 +1,7 @@
 from typing import Optional
 from pydantic import BaseModel
 from fastapi import FastAPI
+from text_processing import compatibility_matrix
 
 class Comparison(BaseModel):
     resume: str
@@ -23,5 +24,6 @@ async def create_comparison(comp: Comparison):
     comp_dict = comp.dict()
     print(comp.resume)
     print(comp.jd)
-    comp_dict.update({"resume": comp.resume, "jd": comp.jd})
+    common_words, resume_alone, jd_alone = compatibility_matrix(comp.resume,comp.jd)
+    comp_dict.update({"resume": comp.resume, "jd": comp.jd, "common_words": common_words, "only_in_resume": resume_alone, "only_in_jd": jd_alone})
     return comp_dict
