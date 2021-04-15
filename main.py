@@ -23,5 +23,5 @@ async def create_comparison(comp: Comparison):
     comp_dict = comp.dict()
     print(comp.resume)
     print(comp.jd)
-    comp_dict.update({"resume": resume, "jd":jd})
+    comp_dict.update({"resume": comp.resume, "jd": comp.jd})
     return comp_dict
